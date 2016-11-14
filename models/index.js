@@ -4,11 +4,11 @@ var db = new Sequelize('postgres://localhost:5432/wikistack', { logging: false})
 var pageSchema ={
     title:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     urlTitle:{
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
+        // allowNull: false
     },
     content:{
         type: Sequelize.TEXT,
@@ -24,7 +24,16 @@ var pageSchema ={
 
 };
 var pageConfig = {
-    getterMethods : {
+    hooks:{
+        beforeValidate: function generateUrlTitle (page){
+            if (page.title){
+                page.urlTitle = page.title.replace(/\s+/g, '_').replace(/\W/g, '').toLowerCase();
+            } else {
+                page.urlTitle = Math.random().toString(36).substring(2, 7);
+            }
+        }
+    },
+    getterMethods: {
         route : function () {
             return '/wiki/'+ this.urlTitle;
         }
