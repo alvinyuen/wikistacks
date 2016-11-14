@@ -3,8 +3,9 @@ const volleyball = require('volleyball');  //logger
 const express = require('express'); //require express
 const app = express(); // creates an instance of an express application
 const nunjucks = require('nunjucks');
-const routes = require('./routes/routes.js');
+const wikiRoutes = require('./routes/wiki.js');
 const bodyParser = require('body-parser');
+const db = require('./models/index.js');
 
 
 app.set('view engine', 'html'); // have res.render work with html files
@@ -22,7 +23,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static('public'))
-app.use('/', routes);
+app.use('/wiki', wikiRoutes);
+
+
+db.Page.sync();
+db.User.sync();
 
 
 app.listen(3000);
