@@ -1,0 +1,5 @@
+<ul>
+  {% for userPage in pages %}
+    <li><a href="/wiki/{{ userPage.urlTitle }}">{{ userPage.title }}</a></li>
+  {% endfor %}
+</ul>

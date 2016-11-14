@@ -1,0 +1,5 @@
+<ul>
+  {% for user in users %}
+    <li><a href="/wiki/user/{{ user.id }}">{{ user.name }}</a></li>
+  {% endfor %}
+</ul>

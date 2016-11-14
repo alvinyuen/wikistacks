@@ -5,5 +5,10 @@
   <hr>
   <ul class="list-unstyled">
     <!-- PLACEHOLDER LIST OF PAGES -->
+    <ul>
+  {% for page in pages %}
+    <li><a href="/wiki/{{page.urlTitle}}">{{page.title}}</a></li>
+  {% endfor %}
+</ul>
   </ul>
 {% endblock %}
