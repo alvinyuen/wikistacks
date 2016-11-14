@@ -80,34 +80,27 @@ router.get('/:title', function(req, res, next) {
 				title: pageInstance.title,
 				content: pageInstance.content
 			});
-			
 		});
 
 });
 
 router.get('/user/:id', function(req, res, next){
-	console.log('finding user id');
 	User.findOne({
 		where: {
 			id: req.params.id
 		}
 	})
-	.then(function(values){
-		console.log('found one user!');
-		var user = values;
-		console.log('USER',user);
 
-		return Page.findAll({
-			where: {
-				authorId: user.id
-			}
-		});
-	})
-	.then(function(pages){
-		console.log('found all user pages');
-		console.log('pages', pages);
-		res.render('user', {pages:pages});
-	});
+		.then(function(user){
+			Page.findAll({
+				where: {
+					authorId: user.id
+				}
+			})
+				.then(function(pages){
+					res.render('user', {pages: pages, user: user});
+				});
+		})
 
 });
 

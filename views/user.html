@@ -1,5 +1,7 @@
 <ul>
   {% for userPage in pages %}
-    <li><a href="/wiki/{{ userPage.urlTitle }}">{{ userPage.title }}</a></li>
+  <li><a href="">{{ user.name }}</a></li>
+  <li><a href="">{{ user.email }}</a></li>
+  <li><a href="/wiki/{{ userPage.urlTitle }}">{{ userPage.title }}</a></li>
   {% endfor %}
 </ul>
