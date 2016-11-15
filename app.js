@@ -6,6 +6,9 @@ const nunjucks = require('nunjucks');
 const wikiRoutes = require('./routes/wiki.js');
 const bodyParser = require('body-parser');
 const db = require('./models/index.js');
+const Promise = require('sequelize').Promise;
+
+const PORT = 3000;
 
 
 app.set('view engine', 'html'); // have res.render work with html files
@@ -15,20 +18,25 @@ var env = nunjucks.configure('views', {noCache: true});  // point nunjucks to th
 // turn off caching; configure returns an Environment instance, which we'll want to use to add Markdown support later.
 
 
-
 app.use(volleyball);
 
 //url-encoded & JSON parsing middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 app.use('/wiki', wikiRoutes);
 
 
-db.Page.sync({force: false});
-db.User.sync({force: false});
+Promise.all([db.Page.sync(), db.User.sync()])
+.then(function(){
+	app.listen(PORT, ()=> {
+		console.log(`server listening on ${PORT}`);
+	});
+});
+// db.Page.sync({force: false});
+// db.User.sync({force: false});
 
 
-app.listen(3000);
-console.log('server listening');
+// app.listen(3000);
+// console.log('server listening');

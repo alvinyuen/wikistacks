@@ -1,17 +1,21 @@
 {% extends "layout.html" %}
 
 {% block content %}
- <!--  <h3>  {{title}} <small> <a href='/wiki/{{title}}'>{{title}}</a></small></h3> -->
-  <!-- <a href="/tweets/{{tweet.id}}">{{tweet.content}}</a> -->
   <div></br></br></br></div>
-  <h3>  Title <small> <a href='/wiki/{{title}}'>{{title}}</a></small></h3>
-  <h4><a href="PLACEHOLDER-AUTHOR-URL">PLACEHOLDER AUTHOR NAME</a></h4>
-  <div>PLACEHOLDER TAG LIST</div>
+  <h3>  Title<small> <a href='/wiki/{{title}}'>{{title}}</a></small></h3>
+  <h4><a href='/wiki/user/{{id}}'>{{name}}</a></h4>
+  <div>{{tags}}</div>
   <hr/>
-  <div>PLACEHOLDER AUTHOR NAME WITH LINK TO AUTHOR PAGE</div>
+  <div>{{name}}</div>
   <div class="page-body">{{content}}</div>
 
   <hr/>
   <a href="PLACEHOLDER_URL_TITLE/edit" class="btn btn-primary">edit this page</a>
   <a href="PLACEHOLDER_URL_TITLE/delete" class="btn btn-danger">delete this page</a>
+
+   <h3> Similar Pages </h3>
+    {% for sPage in similarPages %}
+    <li><a href="/wiki/{{sPage.urlTitle}}">{{sPage.title}}</a></li>
+  {% endfor %}
+  
 {% endblock %}

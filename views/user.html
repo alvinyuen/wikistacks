@@ -1,7 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div style="margin-top: 10vh"></div>
+  <div> <a href="/wiki/user/{{user.id}}"> <h3> {{ user.name }} </h3> </a> email: {{user.email }}</div>
+
 <ul>
   {% for userPage in pages %}
-  <li><a href="">{{ user.name }}</a></li>
-  <li><a href="">{{ user.email }}</a></li>
   <li><a href="/wiki/{{ userPage.urlTitle }}">{{ userPage.title }}</a></li>
   {% endfor %}
 </ul>
+{% endblock %}
